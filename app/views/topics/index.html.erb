@@ -14,6 +14,8 @@
   <tr>
     <td><%= topic.title %></td>
     <td><%= topic.description %></td>
+    <td><%= pluralize(topic.votes.length, "vote") %></td>
+    <td><%= button_to '+1', votes_path(topic_id: topic.id), method: :post %></td>
     <td><%= topic.text %></td>
     <td><%= link_to 'Show', topic %></td>
     <td><%= link_to 'Edit', edit_topic_path(topic) %></td>
