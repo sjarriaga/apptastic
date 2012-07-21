@@ -1,4 +1,7 @@
 Apptastic::Application.routes.draw do
+  
+  match '/home', to: 'static_pages#home'
+  match '/about', to: 'static_pages#about'
   resources :votes
 
   resources :topics

@@ -1,24 +1,29 @@
-<h1>Listing topics</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @topics.each do |topic| %>
-  <tr>
-    <td><%= link_to topic.title, topic %></td>
-    <td><%= pluralize(topic.votes.length, "vote") %></td>
-    <td><%= button_to '+1', votes_path(topic_id: topic.id), method: :post %></td>
-    <td><%= topic.text %></td>
-  </tr>
-<% end %>
+<%- model_class = Topic -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @topics.each do |topic| %>
+      <tr>
+        <td> <%= link_to topic.title, topic %></td>
+        <td> <%= topic.description %></td>
+        <td> <%= pluralize(topic.votes.length, "vote") %> </td>
+        <td> <%= button_to '+1', votes_path(topic_id: topic.id), method: :post %> </td>
+ 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Topic', new_topic_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_topic_path,
+            :class => 'btn btn-primary' %>
